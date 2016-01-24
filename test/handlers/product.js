@@ -3,7 +3,7 @@ var assert = require('assert');
 var request = require('supertest');  
 var mongoose = require('mongoose');
 var winston = require('winston');
-var app = require('../../handlers/api/');
+var app = require('../../handlers/api/product');
 
 describe('product handler', function() {
     before(function(done) {
@@ -14,7 +14,7 @@ describe('product handler', function() {
     describe('GET /', function() {
         it('should return a list of products', function(done) {
             request(app)
-                .get('/api/product/')
+                .get('/')
                 .end(function(err, res) {
                     if (err) {
                         throw err;
