@@ -3,10 +3,10 @@ var assert = require('assert');
 var request = require('supertest');  
 var mongoose = require('mongoose');
 var winston = require('winston');
-var app = require('../../handlers/api/cart');
-var Customer = require('../../models/customer');
-var Product = require('../../models/product');
-var dbConfig = require('../../config/db');
+var app = require('../../../handlers/api/cart');
+var Customer = require('../../../models/customer');
+var Product = require('../../../models/product');
+var dbConfig = require('../../../config/db');
 var testProduct, testCustomer;
 
 describe('cart handler', function() {

@@ -3,9 +3,9 @@ var assert = require('assert');
 var request = require('supertest');  
 var mongoose = require('mongoose');
 var winston = require('winston');
-var app = require('../../handlers/api/customer');
+var app = require('../../../handlers/api/customer');
 var bodyParser = require('body-parser');
-var dbConfig = require('../../config/db');
+var dbConfig = require('../../../config/db');
 
 describe('customer handler', function() {
     before(function(done) {
