@@ -4,6 +4,12 @@ var express = require('express'),
 
 router
     .use('/cart/', require('../../middleware/jwtguard'))
+    .use('/cart/:customerId', function (req, res, next) {
+        if (req.params.customerId !== res.locals.customerId) {
+            return res.sendStatus(401);
+        }
+        next();
+    })
     .use('/cart/', require('./cart'))
     .use('/customer/', require('./customer'))
     .use('/product/', require('./product'));
