@@ -4,11 +4,15 @@ var request = require('supertest');
 var mongoose = require('mongoose');
 var winston = require('winston');
 var app = require('../../handlers/api/product');
+var dbConfig = require('../../config/db');
 
 describe('product handler', function() {
     before(function(done) {
-        mongoose.connect('mongodb://localhost/cart');
-        done();
+        mongoose.connect(dbConfig.TEST_CONNECTION_STRING, function () {
+            mongoose.connection.db.dropDatabase(function () {
+                done();
+            });
+        });
     });
 
     describe('GET /', function() {

@@ -5,10 +5,11 @@ var mongoose = require('mongoose');
 var winston = require('winston');
 var app = require('../../handlers/api/customer');
 var bodyParser = require('body-parser');
+var dbConfig = require('../../config/db');
 
 describe('customer handler', function() {
     before(function(done) {
-        mongoose.connect('mongodb://localhost/test_cart', function () {
+        mongoose.connect(dbConfig.TEST_CONNECTION_STRING, function () {
             mongoose.connection.db.dropDatabase(function () {
                 done();
             });

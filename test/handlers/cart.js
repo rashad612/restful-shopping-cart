@@ -6,11 +6,12 @@ var winston = require('winston');
 var app = require('../../handlers/api/cart');
 var Customer = require('../../models/customer');
 var Product = require('../../models/product');
+var dbConfig = require('../../config/db');
 var testProduct, testCustomer;
 
 describe('cart handler', function() {
     before(function(done) {
-        mongoose.connect('mongodb://localhost/test_cart', function () {
+        mongoose.connect(dbConfig.TEST_CONNECTION_STRING, function () {
             mongoose.connection.db.dropDatabase(function () {
                 done();
             });
