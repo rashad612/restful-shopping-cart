@@ -12,7 +12,7 @@ describe('cart handler', function() {
     });
 
     describe('POST / add to cart', function() {
-        it('should return error trying to save duplicate username', function(done) {
+        it('should add a new product to cart', function(done) {
             var item = {
                 productId: '123',
                 userId: '123',

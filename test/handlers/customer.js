@@ -5,7 +5,7 @@ var mongoose = require('mongoose');
 var winston = require('winston');
 var app = require('../../handlers/api/');
 
-describe('cart handler', function() {
+describe('customer handler', function() {
     before(function(done) {
         mongoose.connect('mongodb://localhost/cart');
         done();
@@ -19,7 +19,7 @@ describe('cart handler', function() {
             };
             request(app)
                 .post('/api/customer/')
-                .send(item)
+                .send(customer)
                 .end(function(err, res) {
                     if (err) {
                         throw err;
@@ -32,8 +32,13 @@ describe('cart handler', function() {
 
     describe('POST /token', function() {
         it('should return an authentication token', function(done) {
+            var customer = {
+                username: 'test_username',
+                password: '123'
+            };
             request(app)
-                .get('/api/customer/token')
+                .post('/api/customer/token')
+                .send(customer)
                 .end(function(err, res) {
                     if (err) {
                         throw err;
