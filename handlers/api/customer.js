@@ -39,7 +39,7 @@ router
                 if (!match) {
                     return res.sendStatus(401);
                 }
-                var token = jwt.sign(customer, 'token secret stuff', {expiresIn: 60 * 60 * 24});
+                var token = jwt.sign({id: customer._id}, 'token secret stuff', {expiresIn: 60 * 60 * 24});
 
                 res.status(200).send({
                     token: token,
