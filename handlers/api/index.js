@@ -3,6 +3,7 @@ var express = require('express'),
     router = express.Router();
 
 router
+    .use('/cart', require('../../middleware/jwtguard'))
     .use('/cart/', require('./cart'))
     .use('/customer/', require('./customer'))
     .use('/product/', require('./product'));
