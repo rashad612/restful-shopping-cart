@@ -8,7 +8,7 @@ var bodyParser = require('body-parser');
 
 describe('customer handler', function() {
     before(function(done) {
-        mongoose.connect('mongodb://localhost/cart', function () {
+        mongoose.connect('mongodb://localhost/test_cart', function () {
             mongoose.connection.db.dropDatabase(function () {
                 done();
             });
