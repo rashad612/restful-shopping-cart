@@ -2,7 +2,7 @@ var mongoose = require('mongoose'),
    Schema = mongoose.Schema;
 
 var schema = Schema({
-    userId: {type: Schema.Types.ObjectId, ref: 'Customer', required: true},
+    customerId: {type: Schema.Types.ObjectId, ref: 'Customer', required: true},
     productId: {type: Schema.Types.ObjectId, ref: 'Product', required: true},
     quantity: {type: Number, required: true}
 });

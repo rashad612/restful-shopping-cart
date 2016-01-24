@@ -8,8 +8,8 @@ app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
 
 router
-    .get('/:userId', function (req, res) {
-        Cart.find({userId: req.params.userId}, function (err, items) {
+    .get('/:customerId', function (req, res) {
+        Cart.find({customerId: req.params.userId}, function (err, items) {
             if (err) {
                 return res.status(500).send(err);
             }
@@ -17,23 +17,24 @@ router
         });
     })
 
-    .post('/', function (req, res) {
+    .post('/:customerId', function (req, res) {
         var cart = new Cart({
-            userId: req.body.userId,
+            customerId: req.body.userId,
             productId: req.body.productId,
             quantity: req.body.quantity
         });
 
         cart.save(function (err, result) {
             if (err) {
+                console.log(err);
                 res.status(500).send(err);
             }
             res.status(201).send(result);
         });
     })
 
-    .delete('/:productId', function (req, res) {
-        Cart.remove({userId: req.params.userId, productId: req.params.productId}, function (err, item) {
+    .delete('/:customerId/:productId', function (req, res) {
+        Cart.remove({customerId: req.params.userId, productId: req.params.productId}, function (err, item) {
             if (err) {
                 return res.sendStatus(500);
             }

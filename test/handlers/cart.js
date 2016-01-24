@@ -42,7 +42,7 @@ describe('cart handler', function() {
                 quantity: 3
             };
             request(app)
-                .post('/')
+                .post('/' + testCustomer._id)
                 .send(item)
                 .end(function(err, res) {
                     if (err) {
@@ -72,7 +72,7 @@ describe('cart handler', function() {
     describe('DELETE /:productId', function (done) {
         it('should remove product from cart and respond with 204', function (done) {
             request(app)
-                .delete('/' + testProduct._id)
+                .delete('/' + testCustomer._id + '/' + testProduct._id)
                 .end(function(err, res) {
                     if (err) {
                         throw err;

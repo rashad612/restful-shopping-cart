@@ -3,7 +3,8 @@ var express = require('express'),
     router = express.Router(),
     Customer = require('../../models/customer'),
     bodyParser = require('body-parser'),
-    jwt = require('jsonwebtoken');
+    jwt = require('jsonwebtoken'),
+    jwtConfig = require('../../config/jwt');
 
 
 app.use(bodyParser.urlencoded({extended: false}));
@@ -20,7 +21,7 @@ router
             if (err) {
                 return res.status(500).send(err);
             }
-            return res.status(201).send(result);
+            return res.sendStatus(201);
         });
     })
 
@@ -39,11 +40,11 @@ router
                 if (!match) {
                     return res.sendStatus(401);
                 }
-                var token = jwt.sign({id: customer._id}, 'token secret stuff', {expiresIn: 60 * 60 * 24});
+                var token = jwt.sign({id: customer._id}, jwtConfig.TOKEN_SALT, {expiresIn: jwtConfig.EXPIRES_IN});
 
                 res.status(200).send({
                     token: token,
-                    expiresIn: 60 * 24
+                    expiresIn: jwtConfig.EXPIRES_IN
                 });
             });
         })
