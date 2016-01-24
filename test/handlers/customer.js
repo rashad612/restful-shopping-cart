@@ -3,12 +3,16 @@ var assert = require('assert');
 var request = require('supertest');  
 var mongoose = require('mongoose');
 var winston = require('winston');
-var app = require('../../handlers/api/');
+var app = require('../../handlers/api/customer');
+var bodyParser = require('body-parser');
 
 describe('customer handler', function() {
     before(function(done) {
-        mongoose.connect('mongodb://localhost/cart');
-        done();
+        mongoose.connect('mongodb://localhost/cart', function () {
+            mongoose.connection.db.dropDatabase(function () {
+                done();
+            });
+        });
     });
 
     describe('POST /', function() {
@@ -18,7 +22,8 @@ describe('customer handler', function() {
                 password: '123'
             };
             request(app)
-                .post('/api/customer/')
+                .post('/')
+                .type('json')
                 .send(customer)
                 .end(function(err, res) {
                     if (err) {
@@ -37,7 +42,8 @@ describe('customer handler', function() {
                 password: '123'
             };
             request(app)
-                .post('/api/customer/token')
+                .post('/token')
+                .type('json')
                 .send(customer)
                 .end(function(err, res) {
                     if (err) {
