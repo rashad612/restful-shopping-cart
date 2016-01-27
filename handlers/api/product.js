@@ -4,12 +4,13 @@ var express = require('express'),
     Product = require('../../models/product');
 
 router.get('/', function (req, res) {
-    Product.find(function (err, result) {
-        if (err) {
+    Product.find()
+        .then(function (result) {
+            return res.status(200).send(result);
+        })
+        .catch(function (err) {
             return res.status(500).send(err);
-        }
-        return res.status(200).send(result);
-    });
+        });
 });
 
 app.use(router);

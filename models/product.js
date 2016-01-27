@@ -1,5 +1,5 @@
-var mongoose = require('mongoose'),
-    Schema = mongoose.Schema;
+var db = require('../modules/db').get();
+var Schema = db.Schema;
 
 var ProductSchema = new Schema({
     name: {type: String, required: true, index: {unique: true}},
@@ -7,4 +7,4 @@ var ProductSchema = new Schema({
     description: {type: String}
 });
 
-module.exports = mongoose.model('ProductSchema', ProductSchema);
+module.exports = db.model('ProductSchema', ProductSchema);

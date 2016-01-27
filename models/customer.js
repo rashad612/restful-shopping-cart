@@ -1,7 +1,7 @@
-var mongoose = require('mongoose'),
-    Schema = mongoose.Schema,
-    bcrypt = require('bcrypt'),
-    SALT_WORK_FACTOR = 10;
+var db = require('../modules/db').get();
+var Schema = db.Schema;
+var bcrypt = require('bcrypt');
+var SALT_WORK_FACTOR = 10;
 
 var CustomerSchema = new Schema({
     username: { type: String, required: true, index: { unique: true } },
@@ -32,4 +32,4 @@ CustomerSchema.methods.comparePassword = function(candidatePassword, cb) {
     });
 };
 
-module.exports = mongoose.model('Customer', CustomerSchema);
+module.exports = db.model('Customer', CustomerSchema);

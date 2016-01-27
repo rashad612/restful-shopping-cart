@@ -9,12 +9,13 @@ app.use(bodyParser.json());
 
 router
     .get('/:customerId', function (req, res) {
-        Cart.find({customerId: req.params.userId}, function (err, items) {
-            if (err) {
+        Cart.find({customerId: req.params.userId})
+            .then(function (items) {
+                return res.status(200).send(items);
+            })
+            .catch(function (err) {
                 return res.status(500).send(err);
-            }
-            return res.status(200).send(items);
-        });
+            });
     })
 
     .post('/:customerId', function (req, res) {
@@ -24,25 +25,26 @@ router
             quantity: req.body.quantity
         });
 
-        cart.save(function (err, result) {
-            if (err) {
-                console.log(err);
+        cart.save()
+            .then(function (result) {
+                res.status(201).send(result);
+            })
+            .catch(function (err) {
                 res.status(500).send(err);
-            }
-            res.status(201).send(result);
-        });
+            });
     })
 
     .delete('/:customerId/:productId', function (req, res) {
-        Cart.remove({customerId: req.params.userId, productId: req.params.productId}, function (err, item) {
-            if (err) {
+        Cart.remove({customerId: req.params.userId, productId: req.params.productId})
+            .then(function (item) {
+                if (!item) {
+                    return res.sendStatus(404);
+                }
+                return res.sendStatus(204);
+            })
+            .catch(function (err) {
                 return res.sendStatus(500);
-            }
-            if (!item) {
-                return res.sendStatus(404);
-            }
-            return res.sendStatus(204);
-        });
+            });
     });
 
 app.use(router);

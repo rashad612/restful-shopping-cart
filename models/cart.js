@@ -1,5 +1,5 @@
-var mongoose = require('mongoose'),
-   Schema = mongoose.Schema;
+var db = require('../modules/db').get();
+var Schema = db.Schema;
 
 var cartSchema = Schema({
     customerId: {type: Schema.Types.ObjectId, ref: 'Customer', required: true},
@@ -9,5 +9,5 @@ var cartSchema = Schema({
 
 cartSchema.index({customerId: true, productId: true}, {unique: true});
 
-var Cart = mongoose.model('Cart', cartSchema);
+var Cart = db.model('Cart', cartSchema);
 module.exports = Cart;
