@@ -1,11 +1,9 @@
 var mongoose = require('mongoose');
-var dbConfig = require('../config/db');
-
 mongoose.Promise = require('bluebird');
 
 
 module.exports = {
-    connect: function () {
+    connect: function (dbConfig) {
         return mongoose.createConnection(dbConfig.CONNECTION_STRING);
     },
     get: function () {
@@ -13,5 +11,6 @@ module.exports = {
     },
     disconnect: function () {
         return mongoose.connection.close();
-    }
+    },
+    Errors: mongoose.Error
 }

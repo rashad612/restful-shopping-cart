@@ -1,9 +1,10 @@
 var express = require('express'),
     bodyParser = require('body-parser'),
     app = express(),
+    dbConfig = require('../config/db'),
     db = require('./modules/db');
 
-db.connect();
+db.connect(dbConfig);
 
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());

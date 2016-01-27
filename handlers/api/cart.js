@@ -2,7 +2,8 @@ var express = require('express'),
     app = express(),
     router = express.Router(),
     Cart = require('../../models/cart'),
-    bodyParser = require('body-parser');
+    bodyParser = require('body-parser'),
+    dbErrors = require('../../modules/db').Errors;
 
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
@@ -25,9 +26,15 @@ router
             quantity: req.body.quantity
         });
 
-        cart.save()
+        cart.validate()
+            .then(function (result) {
+                return cart.save();
+            })
             .then(function (result) {
                 res.status(201).send(result);
+            })
+            .catch(dbErrors.ValidationError, function (err) {
+                return res.status(422).send(err);
             })
             .catch(function (err) {
                 res.status(500).send(err);
