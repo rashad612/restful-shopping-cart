@@ -34,6 +34,24 @@ describe('customer handler', function() {
                     done();
                 });
         });
+
+        it('should return a 422 Unprocessable Entity error for an invalid username', function(done) {
+            var customer = {
+                username: 'test username',
+                password: '123'
+            };
+            request(app)
+                .post('/')
+                .type('json')
+                .send(customer)
+                .end(function(err, res) {
+                    if (err) {
+                        throw err;
+                    }
+                    res.status.should.be.equal(422);
+                    done();
+                });
+        });
     });
 
     describe('POST /token', function() {

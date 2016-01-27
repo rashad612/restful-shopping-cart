@@ -7,7 +7,13 @@ var jwt = require('jsonwebtoken');
 var jwtConfig = require('../config/jwt');
 
 var CustomerSchema = new Schema({
-    username: { type: String, required: true, index: { unique: true } },
+    username: {
+        type: String, required: true,
+        index: { unique: true },
+        validate: function(val) {
+            return /^[a-zA-Z0-9_]{1,15}$/.test(val);
+        }
+    },
     password: { type: String, required: true }
 });
 

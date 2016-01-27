@@ -52,6 +52,24 @@ describe('cart handler', function() {
                     done();
                 });
         });
+
+        it('should return a 422 Unprocessable Entity error for an invalid product id', function(done) {
+            var item = {
+                productId: '123',
+                userId: testCustomer._id,
+                quantity: 3
+            };
+            request(app)
+                .post('/' + testCustomer._id)
+                .send(item)
+                .end(function(err, res) {
+                    if (err) {
+                        throw err;
+                    }
+                    res.status.should.be.equal(422);
+                    done();
+                });
+        });
     });
 
     describe('GET /:userId get cart content', function() {
