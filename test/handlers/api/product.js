@@ -3,8 +3,15 @@ var assert = require('assert');
 var request = require('supertest');  
 var mongoose = require('mongoose');
 var winston = require('winston');
-var app = require('../../../handlers/api/product');
+var express = require('express');
+var app = express();
+var product = require('../../../handlers/api/product');
 var dbConfig = require('../../../config/db');
+var bodyParser = require('body-parser');
+
+app.use(bodyParser.urlencoded({extended: false}));
+app.use(bodyParser.json());
+app.use('/', product);
 
 describe('product handler', function() {
     before(function(done) {

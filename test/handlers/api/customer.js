@@ -3,9 +3,15 @@ var assert = require('assert');
 var request = require('supertest');  
 var mongoose = require('mongoose');
 var winston = require('winston');
-var app = require('../../../handlers/api/customer');
+var express = require('express');
+var customer = require('../../../handlers/api/customer');
 var bodyParser = require('body-parser');
 var dbConfig = require('../../../config/db');
+var app = express();
+
+app.use(bodyParser.urlencoded({extended: false}));
+app.use(bodyParser.json());
+app.use('/', customer);
 
 describe('customer handler', function() {
     before(function(done) {

@@ -5,10 +5,6 @@ var express = require('express'),
     bodyParser = require('body-parser'),
     dbErrors = require('../../modules/db').Errors;
 
-
-app.use(bodyParser.urlencoded({extended: false}));
-app.use(bodyParser.json());
-
 router
 
     .post('/', function (req, res) {

@@ -3,11 +3,18 @@ var assert = require('assert');
 var request = require('supertest');  
 var mongoose = require('mongoose');
 var winston = require('winston');
-var app = require('../../../handlers/api/cart');
+var express = require('express');
+var app = express();
+var cart = require('../../../handlers/api/cart');
 var Customer = require('../../../models/customer');
 var Product = require('../../../models/product');
 var dbConfig = require('../../../config/db');
 var testProduct, testCustomer;
+var bodyParser = require('body-parser');
+
+app.use(bodyParser.urlencoded({extended: false}));
+app.use(bodyParser.json());
+app.use('/', cart);
 
 describe('cart handler', function() {
     before(function(done) {
