@@ -9,8 +9,7 @@ db.connect(dbConfig);
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
 app.use('/api/', require('./handlers/api'));
-app.set('port', process.env.PORT || 3000);
 
-app.listen(function () {
-    console.log('app started at localhost:' + app.get('port'));
+app.listen(process.env.PORT || 3000, function () {
+    console.log('app started at localhost');
 });
